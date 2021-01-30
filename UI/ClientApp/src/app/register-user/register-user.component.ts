@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, NgForm, Validators } from "@angular/forms";
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { UserActivity } from "../models/userActivity.Model";
 import { CustomvalidationService } from "../Services/customvalidation.service";
@@ -12,6 +12,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ["./register-user.component.css"],
 })
 export class RegisterUserComponent {
+  //@ViewChild('myForm', {static: false}) myForm: NgForm;
   userActivityModel: UserActivity;
   registerForm: FormGroup;
   submitted = false;
@@ -24,7 +25,22 @@ export class RegisterUserComponent {
   ) {}
 
   ngOnInit() {
-    this.resetForm();
+    this.registerForm = this.formBuilder.group(
+      {
+        Activity: ["", [Validators.required, Validators.maxLength(50)]],
+        Comments: ["", [Validators.required]],
+        Email: [
+          "",
+          [Validators.required, Validators.email, Validators.maxLength(50)],
+        ],
+        ConfirmEmail: ["", [Validators.required, Validators.maxLength(50)]],
+        FirstName: ["", [Validators.required, Validators.maxLength(50)]],
+        LastName: ["", [Validators.required, Validators.maxLength(50)]],
+      },
+      {
+        validator: this.customValidator.MatchEmail("Email", "ConfirmEmail"),
+      }
+    );
   }
 
 
@@ -45,16 +61,17 @@ export class RegisterUserComponent {
               title: 'Thank you...',
               text: 'Registered Successfully. Do you want to view all registered users?',
               icon: 'success',
-              confirmButtonText: 'Take me to the listing page'
+              confirmButtonText: 'Take me to the listing page',
+              showCancelButton: true,
             }).then((result)=>{
-              if (result) {
+              if (result.isConfirmed) {
                 this.router.navigate(['records']);
               }
             });
 
           },
           (error) => {
-            console.error(error);
+           // console.error(error);
             if (error.error == "User already exists.") {
               this.dataService.RegisteredUserEmail = this.registerForm.getRawValue().Email;
 
@@ -62,9 +79,10 @@ export class RegisterUserComponent {
                 title: 'Already Exists',
                 text: 'User with provided email already exists. Do you want to view all registered users?',
                 icon: 'warning',
-                confirmButtonText: 'Take me to the listing page'
+                confirmButtonText: 'Take me to the listing page',
+                showCancelButton: true,
               }).then((result)=>{
-                if (result) {
+                if (result.isConfirmed) {
                   this.router.navigate(['records']);
                 }
               });
@@ -72,7 +90,6 @@ export class RegisterUserComponent {
             }
             else{
               Swal.fire('Something went wrong', JSON.stringify(error.error), 'error');
-
             }
             this.resetForm();
           }
@@ -81,22 +98,9 @@ export class RegisterUserComponent {
   }
 
   resetForm() {
-    this.registerForm = this.formBuilder.group(
-      {
-        Activity: ["", [Validators.required, Validators.maxLength(50)]],
-        Comments: ["", [Validators.required]],
-        Email: [
-          "",
-          [Validators.required, Validators.email, Validators.maxLength(50)],
-        ],
-        ConfirmEmail: ["", [Validators.required, Validators.maxLength(50)]],
-        FirstName: ["", [Validators.required, Validators.maxLength(50)]],
-        LastName: ["", [Validators.required, Validators.maxLength(50)]],
-      },
-      {
-        validator: this.customValidator.MatchEmail("Email", "ConfirmEmail"),
-      }
-    );
+    this.submitted = false;
+   // this.myForm.resetForm();
+    this.registerForm.reset();
   }
 
   get registerFormControl() {
