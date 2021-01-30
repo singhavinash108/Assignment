@@ -18,5 +18,6 @@ namespace Domain.DTO
         public string Activity { get; set; }
         [Required]
         public string Comments { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

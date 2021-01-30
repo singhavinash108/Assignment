@@ -16,5 +16,7 @@ namespace Domain.Models
         public string Email { get; set; }
         public string Activity { get; set; }
         public string Comments { get; set; }
+
+        public DateTime CreatedDate { get; set; }
     }
 }

@@ -31,7 +31,8 @@ namespace Data.Services
                     Comments = userActivity.Comments,
                     Email = userActivity.Email,
                     FirstName = userActivity.FirstName,
-                    LastName = userActivity.LastName
+                    LastName = userActivity.LastName,
+                    CreatedDate = DateTime.UtcNow
                 });
                 return new UserActivityDTO
                 {
@@ -51,36 +52,34 @@ namespace Data.Services
 
         public async Task<List<UserActivityDTO>> GetAllUserActivities()
         {
-            
-                var result = await _userActivityRepo.GetAllUserActivities();
-                return result.Select(x => new UserActivityDTO()
-                {
-                    Activity = x.Activity,
-                    Comments = x.Comments,
-                    Email = x.Email,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    Id = x.Id
-                }).ToList();
-           
+            var result = await _userActivityRepo.GetAllUserActivities();
+            return result.OrderByDescending(x => x.CreatedDate).Select(x => new UserActivityDTO()
+            {
+                Activity = x.Activity,
+                Comments = x.Comments,
+                Email = x.Email,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Id = x.Id
+            }).ToList();
         }
 
         public async Task<bool> GetIfUserExists(UserActivityDTO userActivity)
         {
-            
-                var result = await _userActivityRepo.GetIfUserExists(new UserActivity
-                {
-                    Activity = userActivity.Activity,
-                    Comments = userActivity.Comments,
-                    Email = userActivity.Email,
-                    FirstName = userActivity.FirstName,
-                    LastName = userActivity.LastName
-                });
-                return result;
-           
+
+            var result = await _userActivityRepo.GetIfUserExists(new UserActivity
+            {
+                Activity = userActivity.Activity,
+                Comments = userActivity.Comments,
+                Email = userActivity.Email,
+                FirstName = userActivity.FirstName,
+                LastName = userActivity.LastName
+            });
+            return result;
+
         }
 
-        
+
 
     }
 }

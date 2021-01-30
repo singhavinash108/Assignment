@@ -1,8 +1,10 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import Swal from 'sweetalert2/dist/sweetalert2.js';
 import { UserActivity } from "../models/userActivity.Model";
 import { CustomvalidationService } from "../Services/customvalidation.service";
 import { DataService } from "../Services/data.service";
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: "app-register-user",
@@ -17,12 +19,15 @@ export class RegisterUserComponent {
   constructor(
     private dataService: DataService,
     private formBuilder: FormBuilder,
-    private customValidator: CustomvalidationService
+    private customValidator: CustomvalidationService,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.resetForm();
   }
+
+
 
   onSubmit() {
     this.submitted = true;
@@ -31,18 +36,45 @@ export class RegisterUserComponent {
         .addUserAcitivy(this.registerForm.getRawValue())
         .subscribe(
           (result) => {
-            console.log(result);
-            this.dataService.registered = true;
             this.resetForm();
+            this.dataService.RegisteredUserEmail = this.registerForm.getRawValue().Email;
+            Swal.fire('Thank you...', 'Registered Successfully.', 'success').then(()=>{
+              this.dataService.registered = true;
+            });
+            Swal.fire({
+              title: 'Thank you...',
+              text: 'Registered Successfully. Do you want to view all registered users?',
+              icon: 'success',
+              confirmButtonText: 'Take me to the listing page'
+            }).then((result)=>{
+              if (result) {
+                this.router.navigate(['records']);
+              }
+            });
+
           },
           (error) => {
             console.error(error);
-            alert(JSON.stringify(error.error));
             if (error.error == "User already exists.") {
-              this.dataService.registered = true;
-              this.dataService.alreadyExists = true;
               this.dataService.RegisteredUserEmail = this.registerForm.getRawValue().Email;
+
+              Swal.fire({
+                title: 'Already Exists',
+                text: 'User with provided email already exists. Do you want to view all registered users?',
+                icon: 'warning',
+                confirmButtonText: 'Take me to the listing page'
+              }).then((result)=>{
+                if (result) {
+                  this.router.navigate(['records']);
+                }
+              });
+
             }
+            else{
+              Swal.fire('Something went wrong', JSON.stringify(error.error), 'error');
+
+            }
+            this.resetForm();
           }
         );
     }

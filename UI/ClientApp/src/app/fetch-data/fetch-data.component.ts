@@ -20,9 +20,6 @@ export class FetchDataComponent {
     }, error => console.error(error));
   }
 
-  get alreadyExists() {
-    return this.dataService.alreadyExists;
-  }
 
   get RegisteredUserEmail() {
     return this.dataService.RegisteredUserEmail;

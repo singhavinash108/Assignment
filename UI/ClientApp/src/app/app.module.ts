@@ -26,8 +26,9 @@ import { RegisterUserComponent } from './register-user/register-user.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      //{ path: 'fetch-data', component: FetchDataComponent },
+      //{ path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', component: RegisterUserComponent, pathMatch: 'full' },
+      { path: 'records', component: FetchDataComponent },
     ]),
     BrowserAnimationsModule,
   ],

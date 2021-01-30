@@ -10,7 +10,6 @@ export class DataService {
 
   RegisteredUserEmail:string ="singh.avinash108@gmail.com";
   registered = false;
-  alreadyExists = false;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
   }
