@@ -1,0 +1,43 @@
+<div class="wrapper wrapper-680">
+  <div class="card-form">
+    <div class="card-body">
+      <h2 *ngIf="alreadyExists">User already exists</h2>
+      <h2 *ngIf="!alreadyExists && registered">Regitered Successfully</h2>
+      <h1 id="tableLabel">Registered Users</h1>
+
+      <p *ngIf="!userActivities"><em>Loading...</em></p>
+
+      <table
+        class="table table-striped"
+        aria-labelledby="tableLabel"
+        *ngIf="userActivities"
+      >
+        <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Activity</th>
+            <th>Comments</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let userActivity of userActivities"
+            [ngClass]="{
+              selected:
+                RegisteredUserEmail.toLowerCase() ==
+                userActivity.email.toLowerCase()
+            }"
+          >
+            <td>{{ userActivity.firstName }}</td>
+            <td>{{ userActivity.lastName }}</td>
+            <td>{{ userActivity.email }}</td>
+            <td>{{ userActivity.activity }}</td>
+            <td>{{ userActivity.comments }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

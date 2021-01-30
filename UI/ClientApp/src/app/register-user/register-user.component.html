@@ -1,0 +1,214 @@
+<div class="wrapper wrapper-680">
+  <div class="card-form">
+    <div class="card-body">
+        <h2 class="title">Registration Form</h2>
+        <form [formGroup]="registerForm">
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="txtFirstName">First Name</label>
+              <input
+                formControlName="FirstName"
+                type="text"
+                class="form-control"
+                id="txtFirstName"
+                aria-describedby="txtFirstName-Error"
+                placeholder="Enter First Name"
+                maxlength="50"
+                appInputTextTrim
+                required
+              />
+              <small
+                id="txtFirstName-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.FirstName.touched || submitted) &&
+                  registerFormControl.FirstName.errors?.required
+                "
+              >
+                First name is required.
+              </small>
+              <small
+                id="txtFirstName-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.FirstName.touched || submitted) &&
+                  registerFormControl.FirstName.errors?.maxlength
+                "
+              >
+                First name should not contain more than 50 character.
+              </small>
+            </div>
+
+            <div class="form-group col-sm-6">
+              <label for="txtLastName">Last Name</label>
+              <input
+                formControlName="LastName"
+                type="text"
+                class="form-control"
+                id="txtLastName"
+                aria-describedby="txtLastName-Error"
+                placeholder="Enter Last Name"
+              />
+              <small
+                id="txtLastName-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.LastName.touched || submitted) &&
+                  registerFormControl.LastName.errors?.required
+                "
+              >
+                Last name is required.
+              </small>
+              <small
+                id="txtLastName-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.LastName.touched || submitted) &&
+                  registerFormControl.LastName.errors?.maxlength
+                "
+              >
+                Last name should not contain more than 50 character.
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="txtEmail">Email</label>
+              <input
+                formControlName="Email"
+                type="email"
+                class="form-control"
+                id="txtEmail"
+                aria-describedby="txtEmail-Error"
+                placeholder="Enter Email"
+              />
+              <small
+                id="txtEmail-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.Email.touched || submitted) &&
+                  registerFormControl.Email.errors?.email
+                "
+              >
+                Enter a valid email address
+              </small>
+              <small
+                id="txtEmail-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.Email.touched || submitted) &&
+                  registerFormControl.Email.errors?.required
+                "
+              >
+                Email is required.
+              </small>
+              <small
+                id="txtEmail-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.Email.touched || submitted) &&
+                  registerFormControl.Email.errors?.maxlength
+                "
+              >
+                Email should not contain more than 50 character.
+              </small>
+            </div>
+
+            <div class="form-group col-sm-6">
+              <label for="txtConfirmEmail">Confirm Email</label>
+              <input
+                formControlName="ConfirmEmail"
+                type="email"
+                class="form-control"
+                id="txtConfirmEmail"
+                aria-describedby="txtConfirmEmail-Error"
+                placeholder="Confirm Email"
+              />
+              <small
+                id="txtConfirmEmail-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.ConfirmEmail.touched || submitted) &&
+                  registerFormControl.ConfirmEmail.errors?.required
+                "
+              >
+                Confirm Email is required.
+              </small>
+              <small
+                id="txtConfirmEmail-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.ConfirmEmail.touched || submitted) &&
+                  registerFormControl.ConfirmEmail.errors?.emailMismatch
+                "
+              >
+                Confirm Email doesnot match
+              </small>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-sm-6">
+              <label for="txtActivity">Activity</label>
+              <input
+                formControlName="Activity"
+                type="text"
+                class="form-control"
+                id="txtActivity"
+                aria-describedby="txtActivity-Error"
+                placeholder="Enter Activity"
+              />
+              <small
+                id="txtActivity-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.Activity.touched || submitted) &&
+                  registerFormControl.Activity.errors?.required
+                "
+              >
+                Activity is required.
+              </small>
+              <small
+                id="txtActivity-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.Activity.touched || submitted) &&
+                  registerFormControl.Activity.errors?.maxlength
+                "
+              >
+                Activity should not contain more than 50 character.
+              </small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-9">
+              <label for="txtComments">Comments</label>
+              <textarea
+                formControlName="Comments"
+                class="form-control"
+                id="txtComments"
+                aria-describedby="txtComments-Error"
+                placeholder="Enter Comments"
+              ></textarea>
+              <small
+                id="txtComments-Error"
+                class="text-danger"
+                *ngIf="
+                  (registerFormControl.FirstName.touched || submitted) &&
+                  registerFormControl.Comments.errors?.required
+                "
+              >
+                Comments is required.
+              </small>
+            </div>
+          </div>
+
+          <button (click)="onSubmit()" type="button" class="btn btn-primary">
+            Submit
+          </button>
+        </form>
+
+    </div>
+  </div>
+</div>

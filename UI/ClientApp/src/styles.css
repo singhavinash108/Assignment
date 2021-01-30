@@ -1,0 +1,71 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Provide sufficient contrast against white background */
+a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+
+.gradient-bg {
+  background: -webkit-gradient(linear,left bottom,right top,from(#85eda1),to(#578c65));
+  background: -webkit-linear-gradient(bottom left,#85eda1 0%,#578c65 100%);
+  background: -moz-linear-gradient(bottom left,#85eda1 0%,#578c65 100%);
+  background: -o-linear-gradient(bottom left,#85eda1 0%,#578c65 100%);
+  background: linear-gradient(to top right,#85eda1 0%,#578c65 100%);
+}
+
+body {
+  min-height: 100vh;
+}
+
+.wrapper--w680 {
+  max-width: 680px;
+}
+
+.wrapper {
+  margin: 0 auto;
+  margin-top: 50px;
+}
+
+.card-form {
+  background: #fff;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 0 8px 20px 0 rgb(0 0 0 / 15%);
+  -moz-box-shadow: 0 8px 20px 0 rgba(0,0,0,.15);
+  box-shadow: 0 8px 20px 0 rgb(0 0 0 / 15%);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #fff;
+}
+
+.card-body {
+  padding: 57px 65px;
+  padding-bottom: 65px;
+}
+
+
+
+input.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+
+textarea.ng-invalid.ng-touched{
+  border: 1px solid red;
+}
+
+tr.selected {
+  background-color: #CFF5FF !important;
+}
